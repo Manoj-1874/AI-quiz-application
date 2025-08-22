@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header Styles */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    /* Login Form Section */
+    .login-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 0;
+    }
+    
+    .login-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+    }
+    
+    .login-header {
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .login-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .login-header p {
+      opacity: 0.9;
+    }
+    
+    .login-form {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-with-icon input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .input-with-icon i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4361ee;
+    }
+    
+    .input-with-icon input:focus {
+      border-color: #4361ee;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+      outline: none;
+    }
+    
+    .forgot-password {
+      text-align: right;
+      margin-top: -15px;
+      margin-bottom: 20px;
+    }
+    
+    .forgot-password a {
+      color: #4361ee;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    
+    .forgot-password a:hover {
+      color: #3a56d4;
+      text-decoration: underline;
+    }
+    
+    .login-button {
+      background: #4361ee;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .login-button:hover {
+      background: #3a56d4;
+    }
+    
+    .login-button:active {
+      transform: scale(0.98);
+    }
+    
+    .login-options {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      border: 1px solid #eee;
+      color: #333;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .facebook {
+      background: #3b5998;
+      color: white;
+    }
+    
+    .google {
+      background: #db4437;
+      color: white;
+    }
+    
+    .twitter {
+      background: #1da1f2;
+      color: white;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .create-account {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+    
+    .create-account a {
+      color: #4361ee;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .create-account a:hover {
+      color: #3a56d4;
+      text-decoration: underline;
+    }
+    
+    /* Error Message Styles */
+    .error-message {
+      color: #d32f2f;
+      padding: 10px 0;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <i class="fas fa-brain"></i>‎ Quiz Master
+      </div>
+      <nav>
+        <a href="/signup.html" class="nav-button"><i class="fas fa-user-plus"></i> Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Login Section -->
+  <center>
+  <section class="login-section">
+    <div class="container">
+      <div class="login-container">
+        <div class="login-header">
+          <h2>Welcome</h2>
+          <p>Sign in to continue your quiz journey</p>
+        </div>
+        <div class="login-form">
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-with-icon">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="off">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-with-icon">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="off">
+              </div>
+            </div>
+            <button type="submit" class="login-button">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+          </form>
+          
+          <div class="login-options">
+            <div class="or-divider">
+              <span>Or login with</span>
+            </div>
+            <div class="social-login">
+              <a href="https://www.facebook.com/login.php?skip_api_login=1&api_key=YOUR_FACEBOOK_APP_ID&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Foauth%3Fclient_id%3DYOUR_FACEBOOK_APP_ID%26redirect_uri%3DYOUR_REDIRECT_URI%26state%3DYOUR_STATE%26scope%3Demail" class="social-btn facebook" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://accounts.google.com/oauth/authorize?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email%20profile&response_type=code&state=YOUR_STATE" class="social-btn google" target="_blank">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="https://twitter.com/i/oauth2/authorize?response_type=code&client_id=YOUR_TWITTER_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=tweet.read%20users.read&state=YOUR_STATE" class="social-btn twitter" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+            <div class="create-account">
+              Don't have an account? <a href="/signup.html">Sign up now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </center>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-text">
+        © 2025 Quiz Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    
+    console.log('🔐 Attempting login for:', email);
+    
+    const button = this.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+    button.disabled = true;
+    
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      
+      console.log('🌐 Login response status:', response.status);
+      
+      const data = await response.json();
+      console.log('📋 Login response data:', data);
+      
+      // Reset button state
+      button.innerHTML = originalText;
+      button.disabled = false;
+      
+      // Remove any existing error message
+      const existingError = document.querySelector('.error-message');
+      if (existingError) existingError.remove();
+      
+      if (response.ok && data && data.success && data.user) {
+        console.log('✅ Login successful, storing user data');
+        
+        // Clear any existing data first
+        localStorage.clear();
+        
+        // Save user data in multiple formats for compatibility
+        const userData = {
+          username: data.user.username,
+          email: data.user.email
+        };
+        
+        console.log('💾 Storing user data:', userData);
+        
+        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("username", data.user.username);
+        localStorage.setItem("email", data.user.email);
+        localStorage.setItem("userEmail", data.user.email);
+        localStorage.setItem("isLoggedIn", "true");
+
+        // Verify storage
+        console.log('🔍 Verification - stored data:', {
+          user: localStorage.getItem("user"),
+          email: localStorage.getItem("email"),
+          username: localStorage.getItem("username"),
+          isLoggedIn: localStorage.getItem("isLoggedIn")
+        });
+
+        // Show success UI
+        button.innerHTML = '<i class="fas fa-check"></i> Success! Redirecting...';
+        button.style.backgroundColor = '#4CAF50';
+
+        // Redirect after a short delay
+        setTimeout(() => {
+          console.log('🔄 Redirecting to categories page...');
+          window.location.href = "/categories.html";
+        }, 1500);
+      } else {
+        console.error('❌ Login failed:', data);
+        // Login failed - show error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data?.message || 'Invalid email or password'}`;
+        this.appendChild(errorDiv);
+      }
+    } catch (error) {
+      console.error('❌ Login error:', error);
+      
+      // Reset button state
+      button.innerHTML = originalText;
+      button.disabled = false;
+      
+      // Show generic error message
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try again later.';
+      
+      // Remove any existing error message
+      const existingError = document.querySelector('.error-message');
+      if (existingError) existingError.remove();
+      
+      this.appendChild(errorDiv);
+    }
+  });
+  </script>
+</body>
+</html>

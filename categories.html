@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    .categories-section {
+      flex: 1;
+      padding: 120px 0 60px;
+    }
+    
+    .categories-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .categories-header h1 {
+      font-size: 2.5rem;
+      color: #1a1a2e;
+      margin-bottom: 15px;
+    }
+    
+    .categories-header p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    
+    .search-container input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      font-size: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .search-container input:focus {
+      outline: none;
+      border-color: #4361ee;
+      box-shadow: 0 5px 20px rgba(67, 97, 238, 0.15);
+    }
+    
+    .search-container i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4361ee;
+    }
+    
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .category-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-icon {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      font-size: 3rem;
+    }
+    
+    .category-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .category-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+    }
+    
+    .category-description {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+    
+    .category-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 15px;
+    }
+    
+    .difficulty {
+      display: flex;
+      gap: 2px;
+    }
+    
+    .difficulty i {
+      color: #ffd700;
+    }
+    
+    .quiz-count {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quiz-count i {
+      margin-right: 5px;
+      color: #4361ee;
+    }
+    
+    .category-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+    }
+    
+    .category-btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .standard-btn {
+      background-color: #f8f9fa;
+      color: #333;
+      border: 2px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .standard-btn:hover {
+      background-color: #eaecef;
+      transform: translateY(-2px);
+    }
+    
+    .ai-btn {
+      background: linear-gradient(135deg, #4361ee, #3a56d4);
+      color: white;
+      box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+    }
+    
+    .ai-btn:hover {
+      background: linear-gradient(135deg, #3a56d4, #2845c2);
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 30px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-contact {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #b3b3b3;
+      font-size: 0.9rem;
+    }
+    
+    .footer-contact i {
+      color: #4361ee;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+      text-align: center;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+    }
+    
+    /* Engagement badge styles */
+    .engagement {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+    .engagement .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f3ff;
+      color: #2845c2;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #dfe4ff;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(67,97,238,0.08);
+    }
+    .engagement .pill i {
+      color: #4361ee;
+    }
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-contact {
+        justify-content: center;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      
+      .categories-header h1 {
+        font-size: 2rem;
+      }
+      
+      .category-actions {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .engagement { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="logo">
+        <i class="fas fa-brain"></i> Quiz Master
+      </a>
+      <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="#" style="color: #4361ee;"><i class="fas fa-th-large"></i> Categories</a>
+        <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+        <a href="shop.html"><i class="fas fa-store"></i> Shop</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#" id="logout-btn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+      <!-- Engagement summary -->
+      <div class="engagement" id="engagement">
+        <span class="pill" title="Daily streak">
+          <i class="fas fa-fire"></i>
+          <span id="streakText">Streak: —</span>
+        </span>
+        <span class="pill" title="Coins">
+          <i class="fas fa-coins"></i>
+          <span id="coinsText">Coins: —</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <section class="categories-section">
+    <div class="container">
+      <div class="categories-header">
+        <h1>Quiz Categories</h1>
+        <p>Choose a category and challenge yourself with our carefully crafted quizzes. Track your progress and compete with others!</p>
+      </div>
+      
+      <div class="categories-grid">
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-html5"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">HTML</h3>
+            <p class="category-description">Test your knowledge of HTML tags, structure, forms, and semantic elements.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 10 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="HTMLQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIHTMLQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-css3-alt"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">CSS</h3>
+            <p class="category-description">Challenge yourself with CSS selectors, layout techniques, animations, and more.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 10 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="CSSQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AICSSQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-js"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">JavaScript</h3>
+            <p class="category-description">Dive into functions, objects, DOM manipulation, and modern ES6+ features.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 3 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="JAVASCRIPTQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIJAVASCRIPTQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-python"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Python</h3>
+            <p class="category-description">Explore Python syntax, data structures, functions, and popular libraries.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 5 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="PYTHONQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIPYTHONQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-react"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">React</h3>
+            <p class="category-description">Test your React skills with components, hooks, state management, and more.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 5 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="REACTQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIREACTQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">SQL</h3>
+            <p class="category-description">Master database queries, joins, indexes, and database design principles.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 3 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="SQLQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AISQLQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-git-alt"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Git</h3>
+            <p class="category-description">Learn version control with Git, branching strategies, and collaboration workflows.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 3 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="GITQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIGITQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-node-js"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Node.js</h3>
+            <p class="category-description">Explore server-side JavaScript, Express framework, and API development.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 3 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="NODEJSQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AINODEJSQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fab fa-java"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Java</h3>
+            <p class="category-description">Test your knowledge of Java syntax, OOP concepts, collections, and multithreading.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 3 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="JAVAQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIJAVAQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">DevOps</h3>
+            <p class="category-description">Learn about CI/CD pipelines, Docker, Kubernetes, and cloud infrastructure.</p>
+            <div class="category-stats">
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quiz-count">
+                <i class="fas fa-list-ul"></i> 5 Questions
+              </div>
+            </div>
+            <div class="category-actions">
+              <a href="DEVOPSQUIZ.html" class="category-btn standard-btn">Standard Quiz</a>
+              <a href="AIDEVOPSQUIZ.html" class="category-btn ai-btn">AI-Powered Quiz</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="leaderboard.html">Leaderboard</a>
+      </div>
+      <div class="footer-contact">
+        <span><i class="fas fa-envelope"></i> support@quizmaster.com</span>
+        <span><i class="fas fa-map-marker-alt"></i> Tamil Nadu, India</span>
+      </div>
+      <div class="footer-text">
+        &copy; 2025 Quiz Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fetch and render engagement summary
+    (function() {
+      function getEmail() {
+        try {
+          const params = new URLSearchParams(location.search);
+          return (
+            localStorage.getItem('email') ||
+            params.get('email') ||
+            ''
+          );
+        } catch {
+          return '';
+        }
+      }
+
+      const email = getEmail();
+      const streakEl = document.getElementById('streakText');
+      const coinsEl = document.getElementById('coinsText');
+      const container = document.getElementById('engagement');
+
+      if (!email) {
+        streakEl.textContent = 'Streak: —';
+        coinsEl.textContent = 'Coins: —';
+        return;
+      }
+
+      fetch(`/api/engagement/summary?email=${encodeURIComponent(email)}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data) return;
+          const current = data.streak?.current ?? 0;
+          const balance = data.coins?.balance ?? 0;
+          streakEl.textContent = `Streak: ${current} day${current === 1 ? '' : 's'}`;
+          coinsEl.textContent = `Coins: ${balance}`;
+        })
+        .catch(() => {
+          // Keep defaults on error
+          container.title = 'Unable to load engagement data';
+        });
+    })();
+
+    window.addEventListener("DOMContentLoaded", function () {
+      const logoutBtn = document.getElementById("logout-btn");
+      const email = localStorage.getItem("email");
+
+      if (email) {
+        logoutBtn.style.display = "inline-block";
+      }
+
+      logoutBtn.addEventListener("click", function () {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "/login.html";
+      });
+    });
+  </script>
+</body>
+
+</html>

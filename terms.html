@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header Styles */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    /* Active link styles */
+    nav a.active {
+      color: #4361ee;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #4361ee;
+      border-radius: 2px;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    /* Terms Section */
+    .terms-section {
+      flex: 1;
+      padding: 120px 0 80px;
+    }
+    
+    .terms-header {
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      padding: 50px 30px;
+      text-align: center;
+      border-radius: 15px;
+      margin-bottom: 50px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .terms-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .terms-header p {
+      opacity: 0.9;
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .last-updated {
+      margin-top: 20px;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+    
+    /* Terms Content */
+    .terms-content {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      padding: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .terms-content h2 {
+      color: #4361ee;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .terms-content h2:first-child {
+      margin-top: 0;
+    }
+    
+    .terms-content h2 i {
+      font-size: 1.5rem;
+    }
+    
+    .terms-content h3 {
+      color: #333;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      margin-top: 30px;
+    }
+    
+    .terms-content p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    
+    .terms-content ul {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      padding-left: 25px;
+    }
+    
+    .terms-content li {
+      margin-bottom: 8px;
+    }
+    
+    .terms-content strong {
+      color: #333;
+      font-weight: 600;
+    }
+    
+    /* Highlight Boxes */
+    .highlight-box {
+      background: linear-gradient(135deg, #ebf0ff, #f8f9ff);
+      border: 1px solid #d1e7ff;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .highlight-box::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      border-radius: 2px;
+    }
+    
+    .highlight-box h3 {
+      color: #4361ee;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .highlight-box h3 i {
+      font-size: 1.2rem;
+    }
+    
+    /* Warning Box */
+    .warning-box {
+      background: linear-gradient(135deg, #fff3cd, #fff8e1);
+      border: 1px solid #ffeaa7;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .warning-box::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      border-radius: 2px;
+    }
+    
+    .warning-box h3 {
+      color: #e67e22;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .warning-box h3 i {
+      font-size: 1.2rem;
+    }
+    
+    .warning-box p {
+      color: #856404;
+    }
+    
+    /* Success Box */
+    .success-box {
+      background: linear-gradient(135deg, #d1edff, #e8f5e8);
+      border: 1px solid #a8e6cf;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .success-box::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      border-radius: 2px;
+    }
+    
+    .success-box h3 {
+      color: #27ae60;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .success-box h3 i {
+      font-size: 1.2rem;
+    }
+    
+    .success-box p {
+      color: #155724;
+    }
+    
+    /* Contact Section */
+    .terms-contact {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .terms-contact h2 {
+      color: #4361ee;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .terms-contact p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 25px;
+    }
+    
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #4361ee;
+      font-weight: 500;
+    }
+    
+    .contact-item i {
+      font-size: 1.2rem;
+    }
+    
+    .contact-item a {
+      color: #4361ee;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contact-item a:hover {
+      color: #3a56d4;
+    }
+    
+    /* Table of Contents */
+    .table-of-contents {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .table-of-contents h2 {
+      color: #4361ee;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .toc-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .toc-list li {
+      margin-bottom: 10px;
+    }
+    
+    .toc-list a {
+      color: #666;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 15px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    
+    .toc-list a:hover {
+      color: #4361ee;
+      background-color: #f8f9ff;
+    }
+    
+    .toc-list a i {
+      font-size: 0.9rem;
+      min-width: 20px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .terms-content {
+        padding: 30px 20px;
+      }
+      
+      .terms-header h1 {
+        font-size: 2rem;
+      }
+      
+      .terms-header p {
+        font-size: 1rem;
+      }
+      
+      .contact-info {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">
+        <i class="fas fa-brain"></i>‎ Quiz Master
+      </a>
+      <nav>
+        <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="/categories.html"><i class="fas fa-tasks"></i> Quizzes</a>
+        <a href="/leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+        <a href="/about.html"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="/contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="/login.html" class="nav-button"><i class="fas fa-sign-in-alt"></i> Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Terms Section -->
+  <section class="terms-section">
+    <div class="container">
+      <!-- Terms Header -->
+      <div class="terms-header">
+        <h1>Terms of Use</h1>
+        <p>Welcome to Quiz Master! These terms of use govern your access to and use of our platform. By using our services, you agree to be bound by these terms.</p>
+        <div class="last-updated">
+          <i class="fas fa-calendar-alt"></i> Last updated: January 1, 2025
+        </div>
+      </div>
+      
+      <!-- Table of Contents -->
+      <div class="table-of-contents">
+        <h2><i class="fas fa-list"></i> Table of Contents</h2>
+        <ul class="toc-list">
+          <li><a href="#acceptance"><i class="fas fa-handshake"></i> Acceptance of Terms</a></li>
+          <li><a href="#description"><i class="fas fa-info-circle"></i> Service Description</a></li>
+          <li><a href="#eligibility"><i class="fas fa-user-check"></i> Eligibility</a></li>
+          <li><a href="#account"><i class="fas fa-user-cog"></i> Account Registration</a></li>
+          <li><a href="#conduct"><i class="fas fa-gavel"></i> User Conduct</a></li>
+          <li><a href="#content"><i class="fas fa-file-alt"></i> Content and Intellectual Property</a></li>
+          <li><a href="#prohibited"><i class="fas fa-ban"></i> Prohibited Activities</a></li>
+          <li><a href="#termination"><i class="fas fa-times-circle"></i> Termination</a></li>
+          <li><a href="#disclaimer"><i class="fas fa-exclamation-triangle"></i> Disclaimers</a></li>
+          <li><a href="#limitation"><i class="fas fa-shield-alt"></i> Limitation of Liability</a></li>
+          <li><a href="#governing-law"><i class="fas fa-balance-scale"></i> Governing Law</a></li>
+          <li><a href="#changes"><i class="fas fa-edit"></i> Changes to Terms</a></li>
+        </ul>
+      </div>
+      
+      <!-- Terms Content -->
+      <div class="terms-content">
+        <h2 id="acceptance"><i class="fas fa-handshake"></i> Acceptance of Terms</h2>
+        <p>By accessing, browsing, or using Quiz Master's website, mobile application, or any of our services (collectively, the "Platform"), you acknowledge that you have read, understood, and agree to be bound by these Terms of Use and all applicable laws and regulations.</p>
+        
+        <p>If you do not agree with any of these terms, you are prohibited from using or accessing this Platform. The materials contained in this Platform are protected by applicable copyright and trademark law.</p>
+        
+        <div class="highlight-box">
+          <h3><i class="fas fa-info-circle"></i> Important Notice</h3>
+          <p>These terms constitute a legally binding agreement between you and Quiz Master. Please read them carefully before using our services.</p>
+        </div>
+
+        <h2 id="description"><i class="fas fa-info-circle"></i> Service Description</h2>
+        <p>Quiz Master is an educational platform that provides interactive quizzes, learning tools, and educational content across various subjects. Our services include:</p>
+        
+        <ul>
+          <li><strong>Interactive Quizzes:</strong> Access to thousands of quizzes across multiple categories and difficulty levels</li>
+          <li><strong>Progress Tracking:</strong> Tools to monitor your learning progress and performance</li>
+          <li><strong>Leaderboards:</strong> Competitive features to compare your performance with other users</li>
+          <li><strong>Personalized Learning:</strong> Customized quiz recommendations based on your preferences and performance</li>
+          <li><strong>Social Features:</strong> Ability to share achievements and compete with friends</li>
+          <li><strong>Educational Content:</strong> Additional learning materials and resources</li>
+        </ul>
+        
+        <p>We reserve the right to modify, suspend, or discontinue any aspect of our services at any time without prior notice.</p>
+
+        <h2 id="eligibility"><i class="fas fa-user-check"></i> Eligibility</h2>
+        <p>To use Quiz Master, you must meet the following eligibility requirements:</p>
+        
+        <ul>
+          <li>You must be at least 13 years of age</li>
+          <li>You must have the legal capacity to enter into a binding agreement</li>
+          <li>Your use of the Platform must not violate any applicable laws or regulations</li>
+          <li>You must not be prohibited from receiving services under applicable laws</li>
+        </ul>
+        
+        <div class="warning-box">
+          <h3><i class="fas fa-exclamation-triangle"></i> Age Restrictions</h3>
+          <p>Users under 18 years of age should obtain parental consent before using our services. Parents and guardians are responsible for monitoring their minor children's use of Quiz Master.</p>
+        </div>
+
+        <h2 id="account"><i class="fas fa-user-cog"></i> Account Registration</h2>
+        <p>To access certain features of Quiz Master, you may need to create an account. When creating an account, you agree to:</p>
+        
+        <h3>Account Information</h3>
+        <ul>
+          <li>Provide accurate, current, and complete information</li>
+          <li>Maintain and update your account information</li>
+          <li>Keep your login credentials secure and confidential</li>
+          <li>Notify us immediately of any unauthorized use of your account</li>
+        </ul>
+        
+        <h3>Account Responsibility</h3>
+        <ul>
+          <li>You are responsible for all activities that occur under your account</li>
+          <li>You agree to use a strong password and enable two-factor authentication when available</li>
+          <li>You may not share your account with others or allow others to use your account</li>
+          <li>You may not create multiple accounts to circumvent restrictions or limitations</li>
+        </ul>
+
+        <h2 id="conduct"><i class="fas fa-gavel"></i> User Conduct</h2>
+        <p>When using Quiz Master, you agree to conduct yourself in a respectful and lawful manner. You agree to:</p>
+        
+        <h3>Acceptable Behavior</h3>
+        <ul>
+          <li>Use the Platform for its intended educational purposes</li>
+          <li>Respect other users and maintain a positive learning environment</li>
+          <li>Provide honest feedback and report any issues or concerns</li>
+          <li>Follow all applicable laws and regulations</li>
+        </ul>
+        
+        <h3>Community Guidelines</h3>
+        <ul>
+          <li>Be respectful in all interactions with other users</li>
+          <li>Do not engage in harassment, bullying, or discrimination</li>
+          <li>Keep discussions relevant to educational topics</li>
+          <li>Report inappropriate behavior or content to our moderators</li>
+        </ul>
+
+        <h2 id="content"><i class="fas fa-file-alt"></i> Content and Intellectual Property</h2>
+        <p>Quiz Master contains content that is protected by intellectual property laws. This includes but is not limited to:</p>
+        
+        <h3>Our Content</h3>
+        <ul>
+          <li>Quiz questions, answers, and explanations</li>
+          <li>Educational materials and resources</li>
+          <li>Software, code, and platform functionality</li>
+          <li>Logos, trademarks, and branding materials</li>
+          <li>Graphics, images, and multimedia content</li>
+        </ul>
+        
+        <h3>License to Use</h3>
+        <p>We grant you a limited, non-exclusive, non-transferable license to access and use our Platform for personal, educational purposes. You may not:</p>
+        <ul>
+          <li>Copy, reproduce, or distribute our content without permission</li>
+          <li>Modify, create derivative works, or reverse engineer our Platform</li>
+          <li>Use our content for commercial purposes</li>
+          <li>Remove or modify copyright notices or other proprietary markings</li>
+        </ul>
+        
+        <h3>User-Generated Content</h3>
+        <p>If you submit any content to Quiz Master (such as quiz suggestions, comments, or feedback), you grant us a perpetual, worldwide, royalty-free license to use, modify, and distribute such content in connection with our services.</p>
+
+        <h2 id="prohibited"><i class="fas fa-ban"></i> Prohibited Activities</h2>
+        <p>The following activities are strictly prohibited when using Quiz Master:</p>
+        
+        <h3>Technical Violations</h3>
+        <ul>
+          <li>Attempting to hack, crack, or circumvent security measures</li>
+          <li>Using automated tools, bots, or scripts to access the Platform</li>
+          <li>Interfering with the proper functioning of the Platform</li>
+          <li>Attempting to gain unauthorized access to user accounts or data</li>
+        </ul>
+        
+        <h3>Content Violations</h3>
+        <ul>
+          <li>Posting or sharing inappropriate, offensive, or illegal content</li>
+          <li>Sharing copyrighted material without proper authorization</li>
+          <li>Spreading false information or misinformation</li>
+          <li>Engaging in spam or unsolicited promotional activities</li>
+        </ul>
+        
+        <h3>Academic Dishonesty</h3>
+        <ul>
+          <li>Cheating or using unauthorized assistance during quizzes</li>
+          <li>Sharing quiz answers or solutions with other users</li>
+          <li>Creating multiple accounts to manipulate scores or rankings</li>
+          <li>Misrepresenting your identity or qualifications</li>
+        </ul>
+
+        <h2 id="termination"><i class="fas fa-times-circle"></i> Termination</h2>
+        <p>Either you or Quiz Master may terminate your access to the Platform at any time, for any reason, with or without notice.</p>
+        
+        <h3>Termination by You</h3>
+        <p>You may terminate your account at any time by contacting us or using the account deletion feature in your settings. Upon termination, your access to the Platform will cease immediately.</p>
+        
+        <h3>Termination by Us</h3>
+        <p>We may suspend or terminate your account if:</p>
+        <ul>
+          <li>You violate these Terms of Use</li>
+          <li>You engage in prohibited activities</li>
+          <li>Your account has been inactive for an extended period</li>
+          <li>We reasonably believe termination is necessary to protect our users or Platform</li>
+        </ul>
+        
+        <h3>Effect of Termination</h3>
+        <p>Upon termination, all rights and licenses granted to you will cease, and you must stop using the Platform. Certain provisions of these terms will survive termination, including intellectual property rights, disclaimers, and limitation of liability.</p>
+
+        <h2 id="disclaimer"><i class="fas fa-exclamation-triangle"></i> Disclaimers</h2>
+        <p>Quiz Master is provided on an "as is" and "as available" basis. We make no warranties or representations about the accuracy, reliability, completeness, or timeliness of our content or services.</p>
+        
+        <div class="warning-box">
+          <h3><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h3>
+          <p>We disclaim all warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. Your use of Quiz Master is at your own risk.</p>
+        </div>
+        
+        <h3>Educational Content</h3>
+        <p>While we strive to provide accurate and up-to-date educational content, we do not guarantee the completeness or accuracy of any information on our Platform. Users should verify important information from authoritative sources.</p>
+        
+        <h3>Technical Issues</h3>
+        <p>We do not warrant that the Platform will be uninterrupted, error-free, or free from viruses or other harmful components. Technical issues may occur, and we are not responsible for any resulting inconvenience or data loss.</p>
+
+        <h2 id="limitation"><i class="fas fa-shield-alt"></i> Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, Quiz Master and its affiliates, officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the Platform.</p>
+        
+        <h3>Maximum Liability</h3>
+        <p>In no event shall our total liability to you for all damages, losses, and causes of action exceed the amount you have paid to Quiz Master in the twelve (12) months preceding the claim, or $100, whichever is greater.</p>
+        
+        <h3>Exclusions</h3>
+        <p>Some jurisdictions do not allow the exclusion or limitation of certain damages, so some of the above limitations may not apply to you. In such cases, our liability will be limited to the greatest extent permitted by applicable law.</p>
+
+        <h2 id="governing-law"><i class="fas fa-balance-scale"></i> Governing Law</h2>
+        <p>These Terms of Use are governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles.</p>
+        
+        <h3>Dispute Resolution</h3>
+        <p>Any disputes arising from these terms or your use of Quiz Master shall be resolved through binding arbitration in accordance with the rules of [Arbitration Organization]. You waive any right to participate in class action lawsuits or class-wide arbitration.</p>
+        
+        <h3>Jurisdiction</h3>
+        <p>You agree that any legal action or proceeding between you and Quiz Master shall be brought exclusively in the federal or state courts located in [Your Jurisdiction], and you consent to the jurisdiction of such courts.</p>
+
+        <h2 id="changes"><i class="fas fa-edit"></i> Changes to Terms</h2>
+        <p>We reserve the right to modify these Terms of Use at any time. When we make changes, we will:</p>
+        
+        <ul>
+          <li>Update the "Last updated" date at the top of these terms</li>
+          <li>Notify users via email or through the Platform if changes are significant</li>
+          <li>Provide a reasonable notice period before changes take effect</li>
+          <li>Maintain previous versions for reference when requested</li>
+        </ul>
+        
+        <div class="success-box">
+          <h3><i class="fas fa-check-circle"></i> Staying Updated</h3>
+          <p>Your continued use of Quiz Master after any changes to these terms constitutes acceptance of the new terms. We encourage you to review these terms periodically to stay informed of any updates.</p>
+        </div>
+        
+        <h3>Notification Methods</h3>
+        <p>We will notify you of significant changes through:</p>
+        <ul>
+          <li>Email notifications to your registered email address</li>
+          <li>In-app notifications when you log into your account</li>
+          <li>Prominent notices on our website or Platform</li>
+          <li>Updates to our official social media channels</li>
+        </ul>
+      </div>
+      
+      <!-- Contact Section -->
+      <div class="terms-contact">
+        <h2><i class="fas fa-envelope"></i> Questions About These Terms?</h2>
+        <p>If you have any questions about these Terms of Use or need clarification on any provision, please don't hesitate to contact us.</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:legal@quizmaster.com">support@quizmaster.com</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <a href="tel:+1234567890">+(91) 9876543210</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Tamil Nadu - 635001, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+    <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="/terms.html">Terms</a>
+        <a href="/policy.html">Privacy</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div class="footer-text">
+        © 2025 Quiz Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      if (username) {
+        // Update navigation for logged-in users
+        const loginButton = document.querySelector('.nav-button');
+        loginButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+        loginButton.href = '#';
+        loginButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          localStorage.removeItem('username');
+          localStorage.removeItem('email');
+          window.location.href = 'login.html';
+        });
+      }
+    });
+
+    // Smooth scrolling for table of contents links
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

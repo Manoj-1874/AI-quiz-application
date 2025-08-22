@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header Styles */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    /* Signup Form Section */
+    .signup-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 0;
+    }
+    
+    .signup-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+    }
+    
+    .signup-header {
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .signup-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .signup-header p {
+      opacity: 0.9;
+    }
+    
+    .signup-form {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-with-icon input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .input-with-icon i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4361ee;
+    }
+    
+    .input-with-icon input:focus {
+      border-color: #4361ee;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+      outline: none;
+    }
+    
+    .form-group .strength-meter {
+      height: 5px;
+      background: #eee;
+      margin-top: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .strength-meter-fill {
+      height: 100%;
+      width: 0;
+      background: #ddd;
+      transition: width 0.3s, background-color 0.3s;
+    }
+    
+    .password-requirements {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .terms-check {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .terms-check input {
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+    
+    .terms-check label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    
+    .terms-check a {
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .terms-check a:hover {
+      text-decoration: underline;
+    }
+    
+    .signup-button {
+      background: #4361ee;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .signup-button:hover {
+      background: #3a56d4;
+    }
+    
+    .signup-button:active {
+      transform: scale(0.98);
+    }
+    
+    .signup-options {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .social-signup {
+      margin: 20px 0;
+    }
+    
+    .social-signup p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .facebook {
+      background: #3b5998;
+    }
+    
+    .google {
+      background: #db4437;
+    }
+    
+    .twitter {
+      background: #1da1f2;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-link {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+    
+    .login-link a {
+      color: #4361ee;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .login-link a:hover {
+      color: #3a56d4;
+      text-decoration: underline;
+    }
+    
+    .benefits {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+    
+    .benefits h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #555;
+      text-align: center;
+    }
+    
+    .benefits-list {
+      list-style: none;
+    }
+    
+    .benefits-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .benefits-list i {
+      color: #4CAF50;
+      margin-right: 10px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+    }
+    
+    /* Error styles */
+    .error-message {
+      color: #d32f2f;
+      padding: 10px 0;
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <i class="fas fa-brain"></i>‎ Quiz Master
+      </div>
+      <nav>
+        <a href="/login.html" class="nav-button"><i class="fas fa-sign-in-alt"></i> Login</a>
+      </nav>
+    </div>
+  </header>
+<center>
+  <!-- Signup Section -->
+  <section class="signup-section">
+    <div class="container">
+      <div class="signup-container">
+        <div class="signup-header">
+          <h2>Create Your Account</h2>
+          <p>Join the Quiz Master community and start your learning journey</p>
+        </div>
+        <div class="signup-form">
+          <form id="signupForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-with-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="Choose a unique username" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-with-icon">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-with-icon">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+              </div>
+              <div class="strength-meter">
+                <div class="strength-meter-fill" id="strengthMeter"></div>
+              </div>
+              <div class="password-requirements">
+                Password should be at least 8 characters with letters, numbers, and special characters
+              </div>
+            </div>
+            <div class="terms-check">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+            </div>
+            <button type="submit" class="signup-button">
+              <i class="fas fa-user-plus"></i> Create Account
+            </button>
+          </form>
+          
+          <div class="signup-options">
+            <div class="social-signup">
+              <p>Or sign up with</p>
+              <div class="social-buttons">
+                <a href="https://www.facebook.com/login.php?skip_api_login=1&api_key=YOUR_FACEBOOK_APP_ID&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Foauth%3Fclient_id%3DYOUR_FACEBOOK_APP_ID%26redirect_uri%3DYOUR_REDIRECT_URI%26state%3DYOUR_STATE%26scope%3Demail" class="social-btn facebook" target="_blank">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://accounts.google.com/oauth/authorize?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email%20profile&response_type=code&state=YOUR_STATE" class="social-btn google" target="_blank">
+                  <i class="fab fa-google"></i>
+                </a>
+                <a href="https://twitter.com/i/oauth2/authorize?response_type=code&client_id=YOUR_TWITTER_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=tweet.read%20users.read&state=YOUR_STATE" class="social-btn twitter" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+            <div class="login-link">
+              Already have an account? <a href="/login.html">Log in</a>
+            </div>
+          </div>
+          
+          <div class="benefits">
+            <h4>Benefits of joining Quiz Master</h4>
+            <ul class="benefits-list">
+              <li><i class="fas fa-check-circle"></i> Access to thousands of quizzes across multiple categories</li>
+              <li><i class="fas fa-check-circle"></i> Track your progress and performance analytics</li>
+              <li><i class="fas fa-check-circle"></i> Compete with friends and join global leaderboards</li>
+              <li><i class="fas fa-check-circle"></i> Earn badges and achievements for your accomplishments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</center>
+  <!-- Footer -->
+  <footer>
+      <div class="footer-text">
+       <center> © 2025 Quiz Master. All rights reserved. </center>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Password strength meter
+    const passwordInput = document.getElementById('password');
+    const strengthMeter = document.getElementById('strengthMeter');
+    
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+      
+      // Length check
+      if (password.length >= 8) {
+        strength += 25;
+      }
+      
+      // Contains lowercase
+      if (/[a-z]/.test(password)) {
+        strength += 25;
+      }
+      
+      // Contains uppercase
+      if (/[A-Z]/.test(password)) {
+        strength += 25;
+      }
+      
+      // Contains number or special char
+      if (/[0-9!@#$%^&*]/.test(password)) {
+        strength += 25;
+      }
+      
+      strengthMeter.style.width = strength + '%';
+      
+      // Color based on strength
+      if (strength < 50) {
+        strengthMeter.style.backgroundColor = '#ff4d4d'; // Weak
+      } else if (strength < 75) {
+        strengthMeter.style.backgroundColor = '#ffaa00'; // Medium
+      } else {
+        strengthMeter.style.backgroundColor = '#4CAF50'; // Strong
+      }
+    });
+
+    // Form submission
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      
+      try {
+        // Show loading state
+        const button = this.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+        button.disabled = true;
+
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json(); // Changed to parse JSON response
+        
+        // Reset button state
+        button.innerHTML = originalText;
+        button.disabled = false;
+
+        if (result.success) {
+          // Success feedback
+          button.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+          button.style.backgroundColor = '#4CAF50';
+          
+          // Show success message
+          showMessage(result.message || 'Account created successfully!', 'success');
+          
+          // Clear form
+          this.reset();
+          
+          // Redirect after short delay
+          setTimeout(() => {
+            window.location.href = "/login.html";
+          }, 2000);
+        } else {
+          // Show error message
+          showMessage(result.message || 'Signup failed. Please try again.', 'error');
+        }
+      } catch (error) {
+        console.error('Signup error:', error);
+        showMessage('Network error. Please try again.', 'error');
+        
+        // Reset button state
+        const button = this.querySelector('button[type="submit"]');
+        button.innerHTML = originalText;
+        button.disabled = false;
+      }
+    });
+    
+    // Helper function to show messages
+    function showMessage(text, type) {
+      // Remove any existing messages
+      const existingMessage = document.querySelector('.message');
+      if (existingMessage) existingMessage.remove();
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.style.cssText = `
+        padding: 12px;
+        margin: 15px 0;
+        border-radius: 5px;
+        text-align: center;
+        ${type === 'error' ? 
+          'background: #ffebee; color: #c62828; border: 1px solid #e57373;' : 
+          'background: #e8f5e8; color: #2e7d32; border: 1px solid #81c784;'
+        }
+      `;
+      messageDiv.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${text}`;
+      
+      // Insert message at the top of the form
+      const form = document.querySelector('.signup-form');
+      form.insertBefore(messageDiv, form.firstChild);
+      
+      // Auto-remove after 5 seconds
+      setTimeout(() => {
+        if (messageDiv.parentNode) {
+          messageDiv.remove();
+        }
+      }, 5000);
+    }
+    
+  </script>
+</body>
+</html>

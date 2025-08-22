@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f5f7ff;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #4361ee;
+    }
+    .shop-header {
+      text-align: center;
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+    .shop-header h1 {
+      font-size: 2.5rem;
+      color: #1a1a2e;
+    }
+    .shop-header p {
+      color: #666;
+      max-width: 600px;
+      margin: 10px auto 0;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .shop-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      padding: 20px;
+    }
+    .shop-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    .shop-item h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .shop-item p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .shop-item .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #4361ee;
+      margin-bottom: 15px;
+    }
+    .shop-item button {
+      background: #4361ee;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .shop-item button:hover {
+      background: #3a56d4;
+    }
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .engagement {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 20px 0;
+    }
+    .engagement div {
+      background: white;
+      border-radius: 8px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-content">
+      <a href="/" class="logo">Quiz Master</a>
+      <nav>
+        <a href="/categories.html">Categories</a>
+        <a href="/leaderboard.html">Leaderboard</a>
+        <a href="/shop.html" style="color: #4361ee;">Shop</a>
+        <a href="#" id="logout-btn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="shop-header">
+    <h1>Shop</h1>
+    <p>Spend your coins on exclusive items and features!</p>
+  </div>
+
+  <div class="engagement" id="engagement">
+    <div>
+      <span id="streakText">Streak: —</span>
+    </div>
+    <div>
+      <span id="coinsText">Coins: —</span>
+    </div>
+  </div>
+
+  <div class="shop-grid" id="shopItems"></div>
+
+  <footer>
+    <p>© 2025 Quiz Master. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const email = localStorage.getItem('email') || '';
+    const shopItemsContainer = document.getElementById('shopItems');
+
+    // Fetch shop items
+    fetch('/api/shop/items')
+      .then(res => res.json())
+      .then(items => {
+        shopItemsContainer.innerHTML = items.map(item => `
+          <div class="shop-item">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <div class="price">${item.price} Coins</div>
+            <button onclick="purchaseItem(${item.id})">Buy</button>
+          </div>
+        `).join('');
+      });
+
+    // Handle item purchase
+    function purchaseItem(itemId) {
+      if (!email) {
+        alert('Please log in to make a purchase.');
+        return;
+      }
+
+      fetch('/api/shop/purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, itemId })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+          } else {
+            alert(data.error || 'Failed to purchase item.');
+          }
+        })
+        .catch(() => alert('Failed to process purchase.'));
+    }
+
+    // Fetch and render engagement summary
+    (function() {
+      function getEmail() {
+        try {
+          const params = new URLSearchParams(location.search);
+          return (
+            localStorage.getItem('email') ||
+            params.get('email') ||
+            ''
+          );
+        } catch {
+          return '';
+        }
+      }
+
+      const email = getEmail();
+      const streakEl = document.getElementById('streakText');
+      const coinsEl = document.getElementById('coinsText');
+      const container = document.getElementById('engagement');
+
+      if (!email) {
+        streakEl.textContent = 'Streak: —';
+        coinsEl.textContent = 'Coins: —';
+        return;
+      }
+
+      fetch(`/api/engagement/summary?email=${encodeURIComponent(email)}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data) return;
+          const current = data.streak?.current ?? 0;
+          const balance = data.coins?.balance ?? 0;
+          streakEl.textContent = `Streak: ${current} day${current === 1 ? '' : 's'}`;
+          coinsEl.textContent = `Coins: ${balance}`;
+        })
+        .catch(() => {
+          // Keep defaults on error
+          container.title = 'Unable to load engagement data';
+        });
+    })();
+
+    window.addEventListener("DOMContentLoaded", function () {
+      const logoutBtn = document.getElementById("logout-btn");
+      const email = localStorage.getItem("email");
+
+      if (email) {
+        logoutBtn.style.display = "inline-block";
+      }
+
+      logoutBtn.addEventListener("click", function () {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "/login.html";
+      });
+    });
+  </script>
+</body>
+</html>

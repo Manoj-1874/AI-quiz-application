@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header Styles */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    /* Active link styles */
+    nav a.active {
+      color: #4361ee;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #4361ee;
+      border-radius: 2px;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    /* About Us Section */
+    .about-section {
+      flex: 1;
+      padding: 120px 0 80px;
+    }
+    
+    .about-header {
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      padding: 60px 30px;
+      text-align: center;
+      border-radius: 15px;
+      margin-bottom: 50px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .about-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .about-header p {
+      opacity: 0.9;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Mission Section */
+    .mission-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    
+    .mission-icon {
+      font-size: 3rem;
+      color: #4361ee;
+      margin-bottom: 20px;
+    }
+    
+    .mission-container h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .mission-container p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Team Section */
+    .team-heading {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .team-heading h3 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    
+    .team-heading p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    
+    .team-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .team-image {
+      height: 250px;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .team-image i {
+      font-size: 5rem;
+      color: #6c757d;
+    }
+    
+    .team-info {
+      padding: 25px;
+      text-align: center;
+    }
+    
+    .team-info h4 {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+    
+    .team-info span {
+      color: #4361ee;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 15px;
+    }
+    
+    .team-info p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #f0f2f5;
+      color: #4361ee;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background-color: #4361ee;
+      color: white;
+    }
+    
+    /* Journey Section */
+    .journey-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .journey-container h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 3px;
+      background: #4361ee;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 30px;
+      position: relative;
+      margin-bottom: 40px;
+      width: 50%;
+    }
+    
+    .timeline-item:nth-child(even) {
+      align-self: flex-end;
+      justify-content: flex-start;
+      padding-left: 30px;
+      padding-right: 0;
+      left: 50%;
+    }
+    
+    .timeline-content {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent #f8f9fa;
+      top: 20px;
+      right: -10px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -10px;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent #f8f9fa transparent transparent;
+    }
+    
+    .time-dot {
+      width: 20px;
+      height: 20px;
+      background: #4361ee;
+      border-radius: 50%;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+    
+    .timeline-content h4 {
+      margin-bottom: 10px;
+      color: #4361ee;
+    }
+    
+    /* CTA Section */
+    .cta-container {
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      border-radius: 15px;
+      padding: 50px 30px;
+      text-align: center;
+      color: white;
+      margin-bottom: 50px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-container h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .cta-container p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .cta-button {
+      background: white;
+      color: #4361ee;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .cta-button.outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cta-button.outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 50px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+        padding-left: 50px;
+      }
+      
+      .time-dot {
+        left: 20px;
+      }
+      
+      .timeline-content::before {
+        display: none;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">
+        <i class="fas fa-brain"></i>‎ Quiz Master
+      </a>
+      <nav>
+        <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="/categories.html"><i class="fas fa-tasks"></i> Category</a>
+        <a href="/leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+        <a href="/about.html" class="active"><i class="fas fa-info-circle"></i> About Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- About Us Section -->
+  <section class="about-section">
+    <div class="container">
+      <!-- Banner Section -->
+      <div class="about-header">
+        <h2>About Quiz Master</h2>
+        <p>Empowering learning through interactive and engaging quiz experiences since 2023</p>
+      </div>
+      
+      <!-- Mission Statement -->
+      <div class="mission-container">
+        <div class="mission-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3>Our Mission</h3>
+        <p>At Quiz Master, we believe that learning should be fun and engaging. Our mission is to create an inclusive platform where knowledge meets entertainment, enabling users to test their skills, learn new facts, and connect with a community of curious minds from around the globe.</p>
+      </div>
+      
+      <!-- Team Section -->
+      <div class="team-heading">
+        <h3>Meet Our Team</h3>
+        <p>The passionate individuals behind Quiz Master, dedicated to creating the best quiz experience for you</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="team-info">
+            <h4>Kiran Sekar C</h4>
+            <span>Founder & CEO</span>
+            <p>Former educator with a passion for making learning accessible and enjoyable for everyone.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="team-info">
+            <h4>Manoj P</h4>
+            <span>Head of Content</span>
+            <p>Trivia enthusiast with expertise in creating engaging and educational quiz content.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="team-info">
+            <h4>Lokesh P</h4>
+            <span>Lead Developer</span>
+            <p>Tech wizard focused on creating intuitive user experiences and robust quiz systems.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Call to Action -->
+      <div class="cta-container">
+        <h3>Join Our Community</h3>
+        <p>Ready to test your knowledge and connect with quiz enthusiasts around the world? Sign up today to start your journey with Quiz Master!</p>
+        <div class="cta-buttons">
+          <a href="/signup.html" class="cta-button">
+            <i class="fas fa-user-plus"></i> Sign Up for Free
+          </a>
+          <a href="/contact.html" class="cta-button outline">
+            <i class="fas fa-envelope"></i> Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/help.html">Help Center</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div class="footer-text">
+        © 2025 Quiz Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      if (username) {
+        // Update navigation for logged-in users
+        const loginButton = document.querySelector('.nav-button');
+        loginButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+        loginButton.href = '#';
+        loginButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          localStorage.removeItem('username');
+          localStorage.removeItem('email');
+          window.location.href = 'login.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

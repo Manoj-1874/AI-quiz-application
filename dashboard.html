@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Quiz Master</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header Styles */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4361ee;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a i {
+      margin-right: 5px;
+    }
+    
+    nav a:hover {
+      color: #4361ee;
+    }
+    
+    .nav-button {
+      background-color: #4361ee;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-button:hover {
+      background-color: #3a56d4;
+      color: white;
+    }
+    
+    /* Dashboard Section */
+    .dashboard-section {
+      flex: 1;
+      padding: 120px 0 60px;
+    }
+    
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      color: #1a1a2e;
+      margin-bottom: 15px;
+    }
+    
+    .dashboard-header p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 30px;
+    }
+    
+    /* User Profile Card */
+    .profile-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+    
+    .profile-header {
+      padding: 30px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+    }
+    
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .profile-email {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .profile-stats {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #4361ee;
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .profile-links {
+      border-top: 1px solid #eee;
+      padding: 15px 20px;
+    }
+    
+    .profile-link {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .profile-link i {
+      margin-right: 10px;
+      color: #4361ee;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .profile-link:hover {
+      color: #4361ee;
+    }
+    
+    /* Dashboard Content */
+    .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .dashboard-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .dashboard-card-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .dashboard-card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+    }
+    
+    .dashboard-card-title i {
+      margin-right: 10px;
+      color: #4361ee;
+    }
+    
+    .dashboard-card-content {
+      padding: 20px;
+    }
+    
+    /* Progress Card */
+    .progress-charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .chart-container {
+      text-align: center;
+    }
+    
+    .progress-circle {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin: 0 auto 15px;
+    }
+    
+    .progress-circle canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .progress-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #4361ee;
+    }
+    
+    .progress-label {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    /* Recent Quizzes */
+    .quiz-list {
+      list-style: none;
+    }
+    
+    .quiz-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+    
+    .quiz-item:last-child {
+      border-bottom: none;
+    }
+    
+    .quiz-item:hover {
+      background-color: #f8f9fe;
+    }
+    
+    .quiz-info {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quiz-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 1.2rem;
+    }
+    
+    .quiz-name {
+      font-weight: 500;
+    }
+    
+    .quiz-date {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 3px;
+    }
+    
+    .quiz-score {
+      font-weight: 600;
+      color: #4361ee;
+    }
+    
+    /* Badges Section */
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 20px;
+    }
+    
+    .badge-item {
+      text-align: center;
+    }
+    
+    .badge-icon {
+      width: 70px;
+      height: 70px;
+      background: #f0f3ff;
+      color: #4361ee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 1.8rem;
+    }
+    
+    .locked .badge-icon {
+      background: #f1f1f1;
+      color: #aaa;
+    }
+    
+    .badge-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    
+    .locked .badge-name {
+      color: #888;
+    }
+    
+    /* Recommendations */
+    .recommendation-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .recommendation-card {
+      background: #f8f9fe;
+      border-radius: 10px;
+      padding: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .recommendation-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .recommendation-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .recommendation-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #1a1a2e;
+    }
+    
+    .recommendation-info {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    /* Buttons */
+    .action-button {
+      padding: 8px 15px;
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .action-button:hover {
+      background-color: #3a56d4;
+    }
+    
+    .action-button.secondary {
+      background-color: transparent;
+      color: #4361ee;
+      border: 1px solid #4361ee;
+    }
+    
+    .action-button.secondary:hover {
+      background-color: #f0f3ff;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-text {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .progress-charts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .dashboard-card-content {
+        overflow-x: auto;
+      }
+      
+      .dashboard-header h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .progress-charts {
+        grid-template-columns: 1fr;
+      }
+      
+      .recommendation-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="logo">
+        <i class="fas fa-brain"></i>‎ Quiz Master
+      </a>
+      <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="categories.html"><i class="fas fa-th-large"></i> Categories</a>
+        <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+        <a href="#" style="color: #4361ee;"><i class="fas fa-user"></i> Dashboard</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dashboard Section -->
+  <section class="dashboard-section">
+    <div class="container">
+      <div class="dashboard-header">
+        <h1>Your Dashboard</h1>
+        <p>Welcome back! Track your progress, view your achievements, and find new quizzes to take.</p>
+      </div>
+      
+      <div class="dashboard-layout">
+        <!-- User Profile Sidebar -->
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <h2 class="profile-name">John Doe</h2>
+            <p class="profile-email">john.doe@example.com</p>
+          </div>
+          
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-value">18</div>
+              <div class="stat-label">Quizzes Taken</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">85%</div>
+              <div class="stat-label">Avg. Score</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">7</div>
+              <div class="stat-label">Badges</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">#12</div>
+              <div class="stat-label">Ranking</div>
+            </div>
+          </div>
+          
+          <div class="profile-links">
+            <a href="#" class="profile-link">
+              <i class="fas fa-user-edit"></i> Edit Profile
+            </a>
+            <a href="#" class="profile-link">
+              <i class="fas fa-cog"></i> Settings
+            </a>
+            <a href="#" class="profile-link">
+              <i class="fas fa-history"></i> Quiz History
+            </a>
+            <a href="#" class="profile-link">
+              <i class="fas fa-bookmark"></i> Saved Quizzes
+            </a>
+            <a href="#" class="profile-link">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </div>
+        </div>
+        
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+          <!-- Progress Overview -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <i class="fas fa-chart-line"></i> Your Progress
+              </h3>
+              <a href="#" class="action-button secondary">View Details</a>
+            </div>
+            <div class="dashboard-card-content">
+              <div class="progress-charts">
+                <div class="chart-container">
+                  <div class="progress-circle">
+                    <canvas id="htmlProgress"></canvas>
+                    <div class="progress-value">80%</div>
+                  </div>
+                  <div class="progress-label">HTML</div>
+                </div>
+                <div class="chart-container">
+                  <div class="progress-circle">
+                    <canvas id="cssProgress"></canvas>
+                    <div class="progress-value">65%</div>
+                  </div>
+                  <div class="progress-label">CSS</div>
+                </div>
+                <div class="chart-container">
+                  <div class="progress-circle">
+                    <canvas id="jsProgress"></canvas>
+                    <div class="progress-value">90%</div>
+                  </div>
+                  <div class="progress-label">JavaScript</div>
+                </div>
+                <div class="chart-container">
+                  <div class="progress-circle">
+                    <canvas id="pythonProgress"></canvas>
+                    <div class="progress-value">75%</div>
+                  </div>
+                  <div class="progress-label">Python</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Quizzes -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <i class="fas fa-history"></i> Recent Quizzes
+              </h3>
+              <a href="#" class="action-button secondary">View All</a>
+            </div>
+            <div class="dashboard-card-content">
+              <ul class="quiz-list">
+                <li class="quiz-item">
+                  <div class="quiz-info">
+                    <div class="quiz-icon">
+                      <i class="fab fa-js"></i>
+                    </div>
+                    <div>
+                      <div class="quiz-name">JavaScript Fundamentals</div>
+                      <div class="quiz-date">May 12, 2025</div>
+                    </div>
+                  </div>
+                  <div class="quiz-score">9/10</div>
+                </li>
+                <li class="quiz-item">
+                  <div class="quiz-info">
+                    <div class="quiz-icon">
+                      <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <div>
+                      <div class="quiz-name">CSS Flexbox & Grid</div>
+                      <div class="quiz-date">May 10, 2025</div>
+                    </div>
+                  </div>
+                  <div class="quiz-score">8/10</div>
+                </li>
+                <li class="quiz-item">
+                  <div class="quiz-info">
+                    <div class="quiz-icon">
+                      <i class="fab fa-html5"></i>
+                    </div>
+                    <div>
+                      <div class="quiz-name">HTML Semantics</div>
+                      <div class="quiz-date">May 8, 2025</div>
+                    </div>
+                  </div>
+                  <div class="quiz-score">10/10</div>
+                </li>
+                <li class="quiz-item">
+                  <div class="quiz-info">
+                    <div class="quiz-icon">
+                      <i class="fab fa-react"></i>
+                    </div>
+                    <div>
+                      <div class="quiz-name">React Basics</div>
+                      <div class="quiz-date">May 5, 2025</div>
+                    </div>
+                  </div>
+                  <div class="quiz-score">7/10</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Earned Badges -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <i class="fas fa-award"></i> Your Badges
+              </h3>
+              <a href="#" class="action-button secondary">View All</a>
+            </div>
+            <div class="dashboard-card-content">
+              <div class="badges-grid">
+                <div class="badge-item">
+                  <div class="badge-icon">
+                    <i class="fas fa-fire"></i>
+                  </div>
+                  <div class="badge-name">Streak Master</div>
+                </div>
+                <div class="badge-item">
+                  <div class="badge-icon">
+                    <i class="fas fa-bolt"></i>
+                  </div>
+                  <div class="badge-name">Quick Thinker</div>
+                </div>
+                <div class="badge-item">
+                  <div class="badge-icon">
+                    <i class="fas fa-crown"></i>
+                  </div>
+                  <div class="badge-name">HTML Expert</div>
+                </div>
+                <div class="badge-item">
+                  <div class="badge-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="badge-name">Perfect Score</div>
+                </div>
+                <div class="badge-item locked">
+                  <div class="badge-icon">
+                    <i class="fas fa-trophy"></i>
+                  </div>
+                  <div class="badge-name">Top 10</div>
+                </div>
+                <div class="badge-item locked">
+                  <div class="badge-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <div class="badge-name">All Rounder</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recommended Quizzes -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <i class="fas fa-lightbulb"></i> Recommended For You
+              </h3>
+            </div>
+            <div class="dashboard-card-content">
+              <div class="recommendation-list">
+                <a href="#" class="recommendation-card">
+                  <div class="recommendation-icon">
+                    <i class="fab fa-react"></i>
+                  </div>
+                  <h4 class="recommendation-title">React Hooks</h4>
+                  <p class="recommendation-info">Advanced React patterns and state management</p>
+                </a>
+                <a href="#" class="recommendation-card">
+                  <div class="recommendation-icon">
+                    <i class="fab fa-node-js"></i>
+                  </div>
+                  <h4 class="recommendation-title">Node.js Basics</h4>
+                  <p class="recommendation-info">Server-side JavaScript fundamentals</p>
+                </a>
+                <a href="#" class="recommendation-card">
+                  <div class="recommendation-icon">
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <h4 class="recommendation-title">SQL Advanced</h4>
+                  <p class="recommendation-info">Complex queries and database optimization</p>
+                </a>
+                <a href="#" class="recommendation-card">
+                  <div class="recommendation-icon">
+                    <i class="fab fa-css3-alt"></i>
+                  </div>
+                  <h4 class="recommendation-title">CSS Animations</h4>
+                  <p class="recommendation-info">Create dynamic web interfaces</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-text">
+        &copy; 2025 Quiz Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Progress circle chart script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to create progress circle
+      function createProgressCircle(canvasId, percentage) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 10;
+        
+        // Set canvas size for high DPI displays
+        canvas.width = canvas.offsetWidth * 2;
+        canvas.height = canvas.offsetHeight * 2;
+        ctx.scale(2, 2);
+        
+        // Background circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = '#f0f3ff';
+        ctx.stroke();
+        
+        // Progress arc
+        const startAngle = -0.5 * Math.PI; // Start at top
+        const endAngle = startAngle + (percentage / 100) * 2 * Math.PI;
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        
+        // Create gradient
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        gradient.addColorStop(0, '#4361ee');
+        gradient.addColorStop(1, '#3a0ca3');
+        ctx.strokeStyle = gradient;
+        ctx.stroke();
+      }
+      
+      // Initialize progress circles
+      createProgressCircle('htmlProgress', 80);
+      createProgressCircle('cssProgress', 65);
+      createProgressCircle('jsProgress', 90);
+      createProgressCircle('pythonProgress', 75);
+    });
+  </script>
+</body>
+</html>
