@@ -123,64 +123,19 @@
       box-shadow: 0 0 30px rgba(0,0,0,0.3);
     }
     
-    .wheel-labels {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    
-    .wheel-label {
-      position: absolute;
-      color: #333;
-      font-weight: bold;
-      font-size: 14px;
-      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-      transform-origin: center center;
-      width: 80px;
-      text-align: center;
-      left: 50%;
-      top: 50%;
-      margin-left: -40px;
-      margin-top: -8px;
-    }
-    
-    .wheel-label:nth-child(1) { /* 10 Coins */
-      transform: rotate(36deg) translateY(-170px) rotate(-36deg);
-    }
-    
-    .wheel-label:nth-child(2) { /* 25 Coins */
-      transform: rotate(108deg) translateY(-170px) rotate(-108deg);
-    }
-    
-    .wheel-label:nth-child(3) { /* 50 Coins */
-      transform: rotate(180deg) translateY(-170px) rotate(-180deg);
-    }
-    
-    .wheel-label:nth-child(4) { /* 100 Coins */
-      transform: rotate(252deg) translateY(-170px) rotate(-252deg);
-    }
-    
-    .wheel-label:nth-child(5) { /* 5 Coins */
-      transform: rotate(324deg) translateY(-170px) rotate(-324deg);
-    }
-    
-    .wheel-center {
+    .wheel-text {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 24px;
+      font-size: 36px;
       font-weight: bold;
       color: #333;
-      background: rgba(255,255,255,0.95);
-      padding: 12px 25px;
+      background: rgba(255,255,255,0.9);
+      padding: 15px 30px;
       border-radius: 50px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       text-shadow: none;
-      pointer-events: none;
     }
     
     .wheel-pointer {
@@ -231,23 +186,11 @@
 
     .shop-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
       max-width: 1200px;
       margin: 0 auto 60px;
       padding: 0 20px;
-    }
-    
-    @media (max-width: 1024px) {
-      .shop-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (max-width: 640px) {
-      .shop-grid {
-        grid-template-columns: 1fr;
-      }
     }
     .shop-item {
       background: white;
@@ -296,6 +239,52 @@
       padding: 20px 0;
       text-align: center;
     }
+
+    /* Additional Styles */
+    .wheel-labels {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 2;
+    }
+    .wheel-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      width: 120px;
+      margin-left: -60px;
+      margin-top: -20px;
+      text-shadow: 0 2px 8px rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.85);
+      border-radius: 10px;
+      padding: 6px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.1rem;
+      font-weight: bold;
+      color: #333;
+      background: rgba(255,255,255,0.95);
+      padding: 18px 38px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: none;
+      z-index: 3;
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -330,15 +319,16 @@
     <h2>Lucky Spin Wheel</h2>
     <p>Test your luck and win exciting rewards!</p>
     
-    <div class="spin-wheel-container">
+    <div class="spin-wheel-container" style="position: relative;">
       <div class="wheel-pointer"></div>
-      <div class="wheel" id="spinWheel">
+      <div class="wheel" id="spinWheel" style="position: relative;">
+        <!-- Prize labels container -->
         <div class="wheel-labels">
-          <div class="wheel-label">10 Coins</div>
-          <div class="wheel-label">25 Coins</div>
-          <div class="wheel-label">50 Coins</div>
-          <div class="wheel-label">100 Coins</div>
-          <div class="wheel-label">5 Coins</div>
+          <div class="wheel-label" style="transform: rotate(0deg) translateY(-210px) rotate(0deg);">Small Reward<br>25 Coins</div>
+          <div class="wheel-label" style="transform: rotate(72deg) translateY(-210px) rotate(-72deg);">Medium Reward<br>75 Coins</div>
+          <div class="wheel-label" style="transform: rotate(144deg) translateY(-210px) rotate(-144deg);">Big Reward<br>150 Coins</div>
+          <div class="wheel-label" style="transform: rotate(216deg) translateY(-210px) rotate(-216deg);">Jackpot<br>300 Coins</div>
+          <div class="wheel-label" style="transform: rotate(288deg) translateY(-210px) rotate(-288deg);">Super Jackpot<br>500 Coins</div>
         </div>
         <div class="wheel-center">SPIN</div>
       </div>
@@ -361,34 +351,6 @@
     const shopItemsContainer = document.getElementById('shopItems');
     let isSpinning = false;
 
-    // Define reward segments (each segment is 72 degrees)
-    const wheelRewards = [
-      { name: '10 Coins', coins: 10, startAngle: 0, endAngle: 72 },
-      { name: '25 Coins', coins: 25, startAngle: 72, endAngle: 144 },
-      { name: '50 Coins', coins: 50, startAngle: 144, endAngle: 216 },
-      { name: '100 Coins', coins: 100, startAngle: 216, endAngle: 288 },
-      { name: '5 Coins', coins: 5, startAngle: 288, endAngle: 360 }
-    ];
-
-    // Function to determine reward based on final wheel position
-    const getRewardFromAngle = (finalAngle) => {
-      // Normalize angle to 0-360 range
-      const normalizedAngle = ((finalAngle % 360) + 360) % 360;
-      
-      // Find which segment the pointer lands on
-      // The pointer points up, so we need to check which segment is at the top
-      const pointerAngle = (360 - normalizedAngle) % 360;
-      
-      for (const reward of wheelRewards) {
-        if (pointerAngle >= reward.startAngle && pointerAngle < reward.endAngle) {
-          return reward;
-        }
-      }
-      
-      // Fallback to first reward if no match found
-      return wheelRewards[0];
-    };
-
     // Spin Wheel Functionality
     const spinWheel = async () => {
       if (isSpinning) return;
@@ -398,50 +360,35 @@
         return;
       }
 
-      // First, generate the spin locally
-      isSpinning = true;
-      const wheel = document.getElementById('spinWheel');
-      const spinButton = document.getElementById('spinButton');
-      
-      spinButton.disabled = true;
-      spinButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Spinning...';
-      
-      // Generate random final position
-      const baseRotations = Math.floor(Math.random() * 5) + 5; // 5-10 full rotations
-      const finalAngle = Math.floor(Math.random() * 360); // Final position
-      const totalRotation = (baseRotations * 360) + finalAngle;
-      
-      // Get the reward based on where wheel will land
-      const selectedReward = getRewardFromAngle(totalRotation);
-      
-      // Animate the wheel
-      wheel.style.transform = rotate(${totalRotation}deg);
-
       try {
-        // Send the determined reward to the server
         const response = await fetch('/api/shop/spin-wheel', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            email, 
-            rewardCoins: selectedReward.coins,
-            rewardName: selectedReward.name
-          })
+          body: JSON.stringify({ email })
         });
 
         const data = await response.json();
 
         if (!data.success) {
           alert(data.error || 'Failed to spin the wheel.');
-          isSpinning = false;
-          spinButton.disabled = false;
-          spinButton.innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
           return;
         }
 
+        // Perform the spin animation
+        isSpinning = true;
+        const wheel = document.getElementById('spinWheel');
+        const spinButton = document.getElementById('spinButton');
+        
+        spinButton.disabled = true;
+        spinButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Spinning...';
+        
+        // Random rotation between 1800-3600 degrees (5-10 full rotations)
+        const randomRotation = Math.floor(Math.random() * 1800) + 1800;
+        wheel.style.transform = `rotate(${randomRotation}deg)`;
+
         // Show result after animation completes
         setTimeout(() => {
-          alert(🎉 Congratulations!\nYou landed on: ${selectedReward.name}\nYou received: ${selectedReward.coins} coins!);
+          alert(`🎉 ${data.message}\nYou won: ${data.prize}\nReward: ${data.reward} coins!`);
           
           // Update coins display
           updateCoinsDisplay();
@@ -455,19 +402,19 @@
         console.error('Spin wheel error:', error);
         alert('Failed to spin the wheel. Please try again.');
         isSpinning = false;
-        spinButton.disabled = false;
-        spinButton.innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
+        document.getElementById('spinButton').disabled = false;
+        document.getElementById('spinButton').innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
       }
     };
 
     // Update coins display
     const updateCoinsDisplay = () => {
-      fetch(/api/engagement/summary?email=${encodeURIComponent(email)})
+      fetch(`/api/engagement/summary?email=${encodeURIComponent(email)}`)
         .then(r => r.ok ? r.json() : null)
         .then(data => {
           if (data) {
             const balance = data.coins?.balance ?? 0;
-            document.getElementById('coinsText').textContent = Coins: ${balance};
+            document.getElementById('coinsText').textContent = `Coins: ${balance}`;
           }
         })
         .catch(() => {
@@ -539,14 +486,14 @@
         return;
       }
 
-      fetch(/api/engagement/summary?email=${encodeURIComponent(email)})
+      fetch(`/api/engagement/summary?email=${encodeURIComponent(email)}`)
         .then(r => r.ok ? r.json() : null)
         .then(data => {
           if (!data) return;
           const current = data.streak?.current ?? 0;
           const balance = data.coins?.balance ?? 0;
-          streakEl.textContent = Streak: ${current} day${current === 1 ? '' : 's'};
-          coinsEl.textContent = Coins: ${balance};
+          streakEl.textContent = `Streak: ${current} day${current === 1 ? '' : 's'}`;
+          coinsEl.textContent = `Coins: ${balance}`;
         })
         .catch(() => {
           container.title = 'Unable to load engagement data';
