@@ -72,13 +72,182 @@
       max-width: 600px;
       margin: 10px auto 0;
     }
+    .engagement {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 20px 0;
+    }
+    .engagement div {
+      background: white;
+      border-radius: 8px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Spin Wheel Section */
+    .spin-wheel-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px 20px;
+      margin: 20px 0;
+      border-radius: 20px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      color: white;
+    }
+    
+    .spin-wheel-container {
+      position: relative;
+      display: inline-block;
+      margin: 20px 0;
+    }
+    
+    .wheel {
+      width: 500px;
+      height: 500px;
+      border: 12px solid #fff;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        from 0deg,
+        #ff6b6b 0deg 72deg,
+        #4ecdc4 72deg 144deg,
+        #45b7d1 144deg 216deg,
+        #96ceb4 216deg 288deg,
+        #ffeaa7 288deg 360deg
+      );
+      transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    }
+    
+    .wheel-labels {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .wheel-label {
+      position: absolute;
+      color: #333;
+      font-weight: bold;
+      font-size: 14px;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      transform-origin: center center;
+      width: 80px;
+      text-align: center;
+      left: 50%;
+      top: 50%;
+      margin-left: -40px;
+      margin-top: -8px;
+    }
+    
+    .wheel-label:nth-child(1) { /* 10 Coins */
+      transform: rotate(36deg) translateY(-170px) rotate(-36deg);
+    }
+    
+    .wheel-label:nth-child(2) { /* 25 Coins */
+      transform: rotate(108deg) translateY(-170px) rotate(-108deg);
+    }
+    
+    .wheel-label:nth-child(3) { /* 50 Coins */
+      transform: rotate(180deg) translateY(-170px) rotate(-180deg);
+    }
+    
+    .wheel-label:nth-child(4) { /* 100 Coins */
+      transform: rotate(252deg) translateY(-170px) rotate(-252deg);
+    }
+    
+    .wheel-label:nth-child(5) { /* 5 Coins */
+      transform: rotate(324deg) translateY(-170px) rotate(-324deg);
+    }
+    
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 25px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: none;
+      pointer-events: none;
+    }
+    
+    .wheel-pointer {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 40px solid #fff;
+      z-index: 10;
+    }
+    
+    .spin-button {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+    
+    .spin-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+    }
+    
+    .spin-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    
+    .spin-cost {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #ffeaa7;
+    }
+
     .shop-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 30px;
       max-width: 1200px;
       margin: 0 auto 60px;
       padding: 0 20px;
+    }
+    
+    @media (max-width: 1024px) {
+      .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .shop-grid {
+        grid-template-columns: 1fr;
+      }
     }
     .shop-item {
       background: white;
@@ -127,18 +296,6 @@
       padding: 20px 0;
       text-align: center;
     }
-    .engagement {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      margin: 20px 0;
-    }
-    .engagement div {
-      background: white;
-      border-radius: 8px;
-      padding: 10px 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
   </style>
 </head>
 <body>
@@ -168,6 +325,31 @@
     </div>
   </div>
 
+  <!-- Spin Wheel Section -->
+  <div class="spin-wheel-section">
+    <h2>Lucky Spin Wheel</h2>
+    <p>Test your luck and win exciting rewards!</p>
+    
+    <div class="spin-wheel-container">
+      <div class="wheel-pointer"></div>
+      <div class="wheel" id="spinWheel">
+        <div class="wheel-labels">
+          <div class="wheel-label">10 Coins</div>
+          <div class="wheel-label">25 Coins</div>
+          <div class="wheel-label">50 Coins</div>
+          <div class="wheel-label">100 Coins</div>
+          <div class="wheel-label">5 Coins</div>
+        </div>
+        <div class="wheel-center">SPIN</div>
+      </div>
+    </div>
+    
+    <button class="spin-button" id="spinButton" onclick="spinWheel()">
+      <i class="fas fa-sync-alt"></i> Spin the Wheel
+    </button>
+    <div class="spin-cost">Cost: 50 Coins per Spin</div>
+  </div>
+
   <div class="shop-grid" id="shopItems"></div>
 
   <footer>
@@ -177,6 +359,121 @@
   <script>
     const email = localStorage.getItem('email') || '';
     const shopItemsContainer = document.getElementById('shopItems');
+    let isSpinning = false;
+
+    // Define reward segments (each segment is 72 degrees)
+    const wheelRewards = [
+      { name: '10 Coins', coins: 10, startAngle: 0, endAngle: 72 },
+      { name: '25 Coins', coins: 25, startAngle: 72, endAngle: 144 },
+      { name: '50 Coins', coins: 50, startAngle: 144, endAngle: 216 },
+      { name: '100 Coins', coins: 100, startAngle: 216, endAngle: 288 },
+      { name: '5 Coins', coins: 5, startAngle: 288, endAngle: 360 }
+    ];
+
+    // Function to determine reward based on final wheel position
+    const getRewardFromAngle = (finalAngle) => {
+      // Normalize angle to 0-360 range
+      const normalizedAngle = ((finalAngle % 360) + 360) % 360;
+      
+      // Find which segment the pointer lands on
+      // The pointer points up, so we need to check which segment is at the top
+      const pointerAngle = (360 - normalizedAngle) % 360;
+      
+      for (const reward of wheelRewards) {
+        if (pointerAngle >= reward.startAngle && pointerAngle < reward.endAngle) {
+          return reward;
+        }
+      }
+      
+      // Fallback to first reward if no match found
+      return wheelRewards[0];
+    };
+
+    // Spin Wheel Functionality
+    const spinWheel = async () => {
+      if (isSpinning) return;
+      
+      if (!email) {
+        alert('Please log in to spin the wheel.');
+        return;
+      }
+
+      // First, generate the spin locally
+      isSpinning = true;
+      const wheel = document.getElementById('spinWheel');
+      const spinButton = document.getElementById('spinButton');
+      
+      spinButton.disabled = true;
+      spinButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Spinning...';
+      
+      // Generate random final position
+      const baseRotations = Math.floor(Math.random() * 5) + 5; // 5-10 full rotations
+      const finalAngle = Math.floor(Math.random() * 360); // Final position
+      const totalRotation = (baseRotations * 360) + finalAngle;
+      
+      // Get the reward based on where wheel will land
+      const selectedReward = getRewardFromAngle(totalRotation);
+      
+      // Animate the wheel
+      wheel.style.transform = rotate(${totalRotation}deg);
+
+      try {
+        // Send the determined reward to the server
+        const response = await fetch('/api/shop/spin-wheel', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email, 
+            rewardCoins: selectedReward.coins,
+            rewardName: selectedReward.name
+          })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          alert(data.error || 'Failed to spin the wheel.');
+          isSpinning = false;
+          spinButton.disabled = false;
+          spinButton.innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
+          return;
+        }
+
+        // Show result after animation completes
+        setTimeout(() => {
+          alert(🎉 Congratulations!\nYou landed on: ${selectedReward.name}\nYou received: ${selectedReward.coins} coins!);
+          
+          // Update coins display
+          updateCoinsDisplay();
+          
+          isSpinning = false;
+          spinButton.disabled = false;
+          spinButton.innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
+        }, 3000);
+
+      } catch (error) {
+        console.error('Spin wheel error:', error);
+        alert('Failed to spin the wheel. Please try again.');
+        isSpinning = false;
+        spinButton.disabled = false;
+        spinButton.innerHTML = '<i class="fas fa-sync-alt"></i> Spin the Wheel';
+      }
+    };
+
+    // Update coins display
+    const updateCoinsDisplay = () => {
+      fetch(/api/engagement/summary?email=${encodeURIComponent(email)})
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (data) {
+            const balance = data.coins?.balance ?? 0;
+            document.getElementById('coinsText').textContent = Coins: ${balance};
+          }
+        })
+        .catch(() => {
+          console.log('Failed to update coins display');
+        });
+    };
 
     // Fetch shop items
     fetch('/api/shop/items')
@@ -208,6 +505,7 @@
         .then(data => {
           if (data.success) {
             alert(data.message);
+            updateCoinsDisplay();
           } else {
             alert(data.error || 'Failed to purchase item.');
           }
@@ -241,17 +539,16 @@
         return;
       }
 
-      fetch(`/api/engagement/summary?email=${encodeURIComponent(email)}`)
+      fetch(/api/engagement/summary?email=${encodeURIComponent(email)})
         .then(r => r.ok ? r.json() : null)
         .then(data => {
           if (!data) return;
           const current = data.streak?.current ?? 0;
           const balance = data.coins?.balance ?? 0;
-          streakEl.textContent = `Streak: ${current} day${current === 1 ? '' : 's'}`;
-          coinsEl.textContent = `Coins: ${balance}`;
+          streakEl.textContent = Streak: ${current} day${current === 1 ? '' : 's'};
+          coinsEl.textContent = Coins: ${balance};
         })
         .catch(() => {
-          // Keep defaults on error
           container.title = 'Unable to load engagement data';
         });
     })();
